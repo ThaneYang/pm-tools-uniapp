@@ -1,7 +1,6 @@
 import App from './App'
 import i18n from './lang/i18n'
 
-
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false

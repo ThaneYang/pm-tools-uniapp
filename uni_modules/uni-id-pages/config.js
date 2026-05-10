@@ -7,29 +7,8 @@ export default {
 	*/
   isAdmin: false, // 区分管理端与用户端
   loginTypes: [
-    // "qq",
-    // "xiaomi",
-    // "sinaweibo",
-    // "taobao",
-    // "facebook",
-    // "google",
-    // "alipay",
-    // "douyin",
-
-    // #ifdef APP
-    'univerify',
-    // #endif
     // #ifndef MP-HARMONY
-    'weixin',
-    // #endif
-    'username',
-    // #ifdef APP
-    'apple',
-    // #endif
-    'smsCode',
-    // #ifdef APP-HARMONY || MP-HARMONY
-    'huawei',
-    'huaweiMobile'
+    'weixin'
     // #endif
   ],
   // 政策协议

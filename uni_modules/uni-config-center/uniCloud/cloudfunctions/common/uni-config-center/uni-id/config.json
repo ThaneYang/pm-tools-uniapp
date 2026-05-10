@@ -1,8 +1,8 @@
 {
   "passwordSecret": "passwordSecret-demo",
   "tokenSecret": "tokenSecret-demo",
-  "tokenExpiresIn": 7200,
-  "tokenExpiresThreshold": 3600,
+  "tokenExpiresIn": 120,
+  "tokenExpiresThreshold": 60,
   "passwordErrorLimit": 6,
   "bindTokenToDevice": false,
   "passwordErrorRetryTime": 3600,
@@ -21,27 +21,27 @@
       }
     }
   },
-	"web": { 
-		"tokenExpiresIn": 7200,
-		"tokenExpiresThreshold": 3600,
+	"web": {
+		"tokenExpiresIn": 120,
+		"tokenExpiresThreshold": 60,
 		"oauth": {
-			"weixin-h5": { 
-				"appid": "微信公众号登录所用的appid、appsecret需要在对应的小程序管理控制台获取",
-				"appsecret": "微信公众号后台获取的appsecret"
+			"weixin-h5": {
+				"appid": "wx36a1471331a351a5",
+				"appsecret": "e98810e355d47f9cf518c74d80f4beb4"
 			},
-			"weixin-web": { 
-				"appid": "微信PC页面扫码登录配置appid",
-				"appsecret": "微信PC页面扫码登录配置appsecret"
+			"weixin-web": {
+				"appid": "wx36a1471331a351a5",
+				"appsecret": "e98810e355d47f9cf518c74d80f4beb4"
 			}
 		}
 	},
   "mp-weixin": {
-		"tokenExpiresIn": 259200,
-		"tokenExpiresThreshold": 86400,
+		"tokenExpiresIn": 120,
+		"tokenExpiresThreshold": 60,
     "oauth": {
       "weixin": {
-        "appid": "微信小程序登录所用的appid、appsecret需要在对应的小程序管理控制台获取",
-        "appsecret": "微信小程序后台获取的appsecret"
+        "appid": "wx36a1471331a351a5",
+        "appsecret": "e98810e355d47f9cf518c74d80f4beb4"
       }
     }
   },
@@ -71,7 +71,7 @@
     "univerify": {
       "appid": "当前应用的appid，使用云函数URL化，此项必须配置",
       "apiKey": "apiKey 和 apiSecret 在开发者中心获取，开发者中心：https://dev.dcloud.net.cn/uniLogin/index?type=0，文档：https://ask.dcloud.net.cn/article/37965",
-      "apiSecret": ""
+      "apiSecret": "111"
     }
   }
 }

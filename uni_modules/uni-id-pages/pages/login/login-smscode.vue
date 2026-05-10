@@ -1,120 +1,65 @@
-<!-- 短信验证码登录页 -->
 <template>
-	<view class="uni-content">
-		<view class="login-logo">
-			<image :src="logo"></image>
+	<view class="login-page">
+		<view class="brand-card">
+			<image class="logo" src="/static/logo.png" mode="aspectFit"></image>
+			<text class="title">微信登录</text>
+			<text class="tip">点击下方按钮完成微信授权登录</text>
 		</view>
-		<!-- 顶部文字 -->
-		<text class="title">请输入验证码</text>
-		<text class="tip">先输入图形验证码，再获取短信验证码</text>
-		<uni-forms>
-			<uni-id-pages-sms-form focusCaptchaInput v-model="code" type="login-by-sms" ref="smsCode" :phone="phone">
-			</uni-id-pages-sms-form>
-			<button class="uni-btn send-btn" type="primary" @click="submit">登录</button>
-		</uni-forms>
-		<uni-popup-captcha @confirm="submit" v-model="captcha" scene="login-by-sms" ref="popup"></uni-popup-captcha>
+
+		<view class="login-card">
+			<text class="section-title">快捷登录</text>
+			<button class="primary-btn" type="primary" @click="loginByWeixin">微信登录</button>
+		</view>
 	</view>
 </template>
+
 <script>
-	import mixin from '@/uni_modules/uni-id-pages/common/login-page.mixin.js';
-	export default {
-		mixins: [mixin],
-		data() {
-			return {
-				"code": "",
-				"phone": "",
-				"captcha": "",
-				"logo": "/static/logo.png"
-			}
-		},
-		computed: {
-			tipText() {
-				return '验证码已通过短信发送至' + this.phone;
-			},
-		},
-		onLoad({
-			phoneNumber
-		}) {
-			this.phone = phoneNumber;
-		},
-		onShow() {
-			// #ifdef H5
-			document.onkeydown = event => {
-				var e = event || window.event;
-				if (e && e.keyCode == 13) { //回车键的键值为13
-					this.submit()
-				}
-			};
-			// #endif
-		},
-		methods: {
-			submit() { //完成并提交
-				const uniIdCo = uniCloud.importObject("uni-id-co", {
-					errorOptions: {
-						type: 'toast'
+import loginMixin from '@/uni_modules/uni-id-pages/common/login-page.mixin.js'
+
+export default {
+	mixins: [loginMixin],
+	methods: {
+		loginByWeixin() {
+			uni.showLoading({ title: '微信登录中', mask: true })
+			uni.login({
+				provider: 'weixin',
+				onlyAuthorize: true,
+				success: async (res) => {
+					try {
+						const uniIdCo = uniCloud.importObject('uni-id-co', { customUI: true })
+						const result = await uniIdCo.loginByWeixin({ code: res.code })
+						this.loginSuccess({
+							...result,
+							uniIdRedirectUrl: '/pages/index/index'
+						})
+					} catch (error) {
+						uni.showModal({
+							content: error?.message || '微信登录失败',
+							showCancel: false
+						})
+					} finally {
+						uni.hideLoading()
 					}
-				})
-				if (this.code.length != 6) {
-					this.$refs.smsCode.focusSmsCodeInput = true
-					return uni.showToast({
-						title: '验证码不能为空',
-						icon: 'none',
-						duration: 3000
-					});
+				},
+				fail: (error) => {
+					uni.hideLoading()
+					uni.showModal({
+						content: error?.errMsg || '微信授权失败',
+						showCancel: false
+					})
 				}
-				uniIdCo.loginBySms({
-					"mobile": this.phone,
-					"code": this.code,
-					"captcha": this.captcha
-				}).then(e => {
-					this.loginSuccess(e)
-				}).catch(e => {
-					if (e.errCode == 'uni-id-captcha-required') {
-						this.$refs.popup.open()
-					} else {
-						console.log(e.errMsg);
-					}
-				}).finally(e => {
-					this.captcha = ''
-				})
-			}
+			})
 		}
 	}
+}
 </script>
-<style scoped lang="scss">
-	@import "@/uni_modules/uni-id-pages/common/login-page.scss";
 
-	.tip {
-		margin-top: -15px;
-		margin-bottom: 15px;
-	}
-
-	.popup-captcha {
-		/* #ifndef APP-NVUE */
-		display: flex;
-		/* #endif */
-		padding: 20rpx;
-		background-color: #FFF;
-		border-radius: 2px;
-		flex-direction: column;
-		position: relative;
-	}
-
-	.popup-captcha .title {
-		font-weight: normal;
-		padding: 0;
-		padding-bottom: 15px;
-		color: #666;
-	}
-
-	.popup-captcha .close {
-		position: absolute;
-		bottom: -40px;
-		margin-left: -13px;
-		left: 50%;
-	}
-
-	.popup-captcha .uni-btn {
-		margin: 0;
-	}
+<style scoped>
+.login-page { min-height: 100vh; padding: 80rpx 32rpx 40rpx; background: linear-gradient(180deg, #5f4ae8 0%, #f4f5fb 26%, #f4f5fb 100%); }
+.brand-card, .login-card { background:#fff; border-radius: 32rpx; padding: 28rpx; box-shadow: 0 18rpx 40rpx rgba(24, 28, 43, 0.08); margin-bottom: 22rpx; }
+.logo { width: 120rpx; height: 120rpx; display:block; margin: 0 auto 18rpx; }
+.title { display:block; text-align:center; font-size: 36rpx; font-weight: 700; color:#111827; }
+.tip { display:block; text-align:center; margin-top: 10rpx; font-size: 24rpx; color:#64748b; }
+.section-title { display:block; margin-bottom: 18rpx; font-size: 30rpx; font-weight: 700; color:#111827; }
+.primary-btn { border-radius: 18rpx; background: linear-gradient(90deg, #5f4ae8 0%, #7c3aed 100%); color:#fff; font-size: 30rpx; }
 </style>

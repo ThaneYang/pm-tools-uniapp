@@ -324,6 +324,7 @@
 						this.login_before(type, navigateBack, options)
 					})
 				}
+				console.log('type', type)
 				// #ifdef H5
 					if(type == 'weixin'){
 						// console.log('开始微信网页登录');
@@ -499,7 +500,12 @@
 					// #ifdef H5
 					result.loginType = type
 					// #endif
-					mutations.loginSuccess(result)
+					const parent = this.getParentComponent()
+					if (parent?.loginSuccess) {
+						parent.loginSuccess(result)
+					} else {
+						mutations.loginSuccess(result)
+					}
 				})
 				.catch(e=>{
 					uni.showModal({

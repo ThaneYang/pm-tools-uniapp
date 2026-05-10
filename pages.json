@@ -1,5 +1,20 @@
 {
 	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "应用中心",
+				// #ifndef APP
+				"enablePullDownRefresh": true,
+				// #endif
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": "H5应用"
+			}
+		},
+		{
 			"path": "pages/list/list",
 			"style": {
 				// #ifndef APP
@@ -41,6 +56,12 @@
 		},
 		{
 			"path": "pages/ucenter/ucenter",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/ucenter/member-buy/member-buy",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -102,22 +123,8 @@
 				"navigationStyle": "custom",
 				"enablePullDownRefresh": false
 			}
-		},
-		// #endif
-		{
-			"path" : "pages/index/index",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
-		},
-		{
-			"path" : "pages/webview/webview",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
 		}
+		// #endif
 	],
 	"subPackages": [{
 			"root": "uni_modules/uni-feedback",
@@ -235,11 +242,7 @@
 		"navigationBarTitleText": "uni-starter",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8",
-		"enablePullDownRefresh": false,
-		// "maxWidth":375,
-		"rpxCalcMaxDeviceWidth": 375,
-		"rpxCalcBaseDeviceWidth": 375
-		// "rpxCalcIncludeWidth":0
+		"enablePullDownRefresh": false
 	},
 	"condition": {
 		"list": [{
@@ -259,15 +262,10 @@
 		"borderStyle": "black",
 		"backgroundColor": "#FFFFFF",
 		"list": [{
-			"pagePath": "pages/list/list",
+			"pagePath": "pages/index/index",
 			"iconPath": "static/tabbar/list.png",
 			"selectedIconPath": "static/tabbar/list_active.png",
-			"text": "列表"
-		}, {
-			"pagePath": "pages/grid/grid",
-			"iconPath": "static/tabbar/grid.png",
-			"selectedIconPath": "static/tabbar/grid_active.png",
-			"text": "宫格"
+			"text": "首页"
 		}, {
 			"pagePath": "pages/ucenter/ucenter",
 			"iconPath": "static/tabbar/me.png",

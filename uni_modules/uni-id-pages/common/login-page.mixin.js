@@ -25,7 +25,6 @@ const mixin = {
 			})
 
 			if (window.location.href.includes('#')) {
-				// 将url通过 ? 分割获取后面的参数字符串 再通过 & 将每一个参数单独分割出来
 				const paramsArr = window.location.href.split('?')[1].split('&')
 				paramsArr.forEach(item => {
 					const arr = item.split('=')
@@ -35,15 +34,15 @@ const mixin = {
 				})
 			}
 			this.$nextTick(n => {
-				// console.log(this.$refs.uniFabLogin);
 				this.$refs.uniFabLogin.login({
 					code: e.code
 				}, 'weixin')
 			})
 		}
-
+		
 		if (e.uniIdRedirectUrl) {
 			this.uniIdRedirectUrl = decodeURIComponent(e.uniIdRedirectUrl)
+			console.log('uniIdRedirectUrl', this.uniIdRedirectUrl)
 		}
 
 		// #ifdef MP-WEIXIN
@@ -84,6 +83,7 @@ const mixin = {
 	},
 	methods: {
 		loginSuccess(e) {
+			console.log('loginSuccess redirect', this.uniIdRedirectUrl)
 			mutations.loginSuccess({
 				...e,
 				uniIdRedirectUrl: this.uniIdRedirectUrl
@@ -91,5 +91,4 @@ const mixin = {
 		}
 	}
 }
-
 export default mixin
