@@ -1,8 +1,8 @@
 {
   "passwordSecret": "passwordSecret-demo",
   "tokenSecret": "tokenSecret-demo",
-  "tokenExpiresIn": 120,
-  "tokenExpiresThreshold": 60,
+  "tokenExpiresIn": 720,
+  "tokenExpiresThreshold": 360,
   "passwordErrorLimit": 6,
   "bindTokenToDevice": false,
   "passwordErrorRetryTime": 3600,
@@ -22,8 +22,8 @@
     }
   },
 	"web": {
-		"tokenExpiresIn": 120,
-		"tokenExpiresThreshold": 60,
+		"tokenExpiresIn": 720,
+		"tokenExpiresThreshold": 360,
 		"oauth": {
 			"weixin-h5": {
 				"appid": "wx36a1471331a351a5",
@@ -36,8 +36,8 @@
 		}
 	},
   "mp-weixin": {
-		"tokenExpiresIn": 120,
-		"tokenExpiresThreshold": 60,
+		"tokenExpiresIn": 720,
+		"tokenExpiresThreshold": 360,
     "oauth": {
       "weixin": {
         "appid": "wx36a1471331a351a5",
